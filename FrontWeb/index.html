@@ -63,36 +63,30 @@
   <script>
     function LoginCheckMember() {
       debugger;
-      
+
       let id = $(`#floatingInput`).val();
-      if(id === ''){
+      if (id === '') {
         alert("未輸入帳號");
         return;
       }
       let pwd = $(`#floatingPassword`).val();
-      if(pwd === ''){
+      if (pwd === '') {
         alert("未輸入密碼");
         return;
       }
       var data = {
-        id : id,
-        pwd : pwd
+        id: id,
+        pwd: pwd
       };
       $.ajax({
         type: "POST",
         url: "https://localhost:44328/Login",
+        contentType: 'application/json',
         data: JSON.stringify(data),
-        success: function (res) { 
-          if(res.state != '200'){
-            alert("帳號密碼輸入錯誤!");
-          }
-          else{
-            alert("登入成功");
-
-          }
-
-        }, error: function () {
-
+        success: function (res) {
+          OK("登入成功")
+        }, error: function (err) {
+          alert("帳號密碼輸入錯誤!");
         }
       });
     }
