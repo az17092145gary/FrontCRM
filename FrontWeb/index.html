@@ -84,7 +84,11 @@
         contentType: 'application/json',
         data: JSON.stringify(data),
         success: function (res) {
-          OK("登入成功")
+          alert("登入成功");
+          window.localStorage.setItem("id",id);
+          window.localStorage.setItem("pwd",pwd);
+          window.location.href = "http://127.0.0.1:5500/FrontWeb/membersite.html";
+          
         }, error: function (err) {
           alert("帳號密碼輸入錯誤!");
         }

@@ -35,9 +35,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
     <script>
         var tempDataList;
-        const memEMPID = window.localStorage.getItem("EMPID");
+        var memEMPID= window.localStorage.getItem("id");
         // 取得全部會員
         function getAllMember() {
+            console.log(memEMPID);
             $.ajax({
                 type: 'get',
                 url: "https://localhost:44328/Member/getAllMember",
