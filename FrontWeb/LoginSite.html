@@ -62,21 +62,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
   <script>
     function LoginCheckMember() {
-      debugger;
-
-      let id = $(`#floatingInput`).val();
-      if (id === '') {
+      let EMPID = $(`#floatingInput`).val();
+      if (EMPID === '') {
         alert("未輸入帳號");
         return;
       }
-      let pwd = $(`#floatingPassword`).val();
-      if (pwd === '') {
+      let EMPPWD = $(`#floatingPassword`).val();
+      if (EMPPWD === '') {
         alert("未輸入密碼");
         return;
       }
       var data = {
-        id: id,
-        pwd: pwd
+        EMPID: EMPID,
+        EMPPWD: EMPPWD
       };
       $.ajax({
         type: "POST",
@@ -85,12 +83,16 @@
         data: JSON.stringify(data),
         success: function (res) {
           alert("登入成功");
-          window.localStorage.setItem("id",id);
-          window.localStorage.setItem("pwd",pwd);
+          window.localStorage.setItem("id",res)
+          window.localStorage.setItem("EMPID", EMPID);
+          window.localStorage.setItem("EMPPWD", EMPPWD);
+          //轉跳網頁
           window.location.href = "http://127.0.0.1:5500/FrontWeb/membersite.html";
-          
+
         }, error: function (err) {
           alert("帳號密碼輸入錯誤!");
+          $(`#floatingInput`).val('');
+          $(`#floatingPassword`).val('');
         }
       });
     }
