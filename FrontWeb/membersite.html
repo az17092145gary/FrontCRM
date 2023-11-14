@@ -5,11 +5,14 @@
     <style>
 
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
-    <button type="button" class="btn btn-success">新增</button>
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+        id="btncreate">新增</button>
     <div class="input-group mb-3">
         <input id="memselect" type="text" class="form-control" placeholder="Username" aria-label="Username"
             aria-describedby="basic-addon1">
@@ -31,11 +34,63 @@
         <tbody>
         </tbody>
     </table>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">會員資料</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12">
+                        <label for="EMPID" class="form-label">員工編號</label>
+                        <input type="text" style="background-color: darkgrey;" class="form-control" id="INPUTEMPID"
+                            placeholder="" value="" readonly>
+                    </div>
+                    <div class="col-12">
+                        <label for="EMPNAME" class="form-label">姓名</label>
+                        <input type="text" class="form-control" id="INPUTEMPNAME" placeholder="" value="">
+                        <div class="invalid-feedback">
+                            請輸入姓名
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="INPUTEMAIL" placeholder="you@example.com">
+                        <div class="invalid-feedback">
+                            請輸入電子郵件
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="PHONE" class="form-label">連絡電話</label>
+                        <input type="text" class="form-control" id="INPUTPHONE">
+                        <div class="invalid-feedback">
+                            請輸入號碼
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="EMPPWD" class="form-label">密碼</label>
+                        <input type="text" class="form-control" id="EMPPWD">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btncomfrom">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
     <script>
         var tempDataList;
         var id = window.localStorage.getItem("id");
+        if (id === '' || id === null) {
+            alert("請登入");
+            window.location.href = "http://127.0.0.1:5500/FrontWeb/LoginSite.html";
+        }
         // 取得全部會員
         function getAllMember() {
             $.ajax({
@@ -51,7 +106,8 @@
                         <td>${data.EMPNAME}</td>
                         <td>${data.PHONE}</td>
                         <td>${data.EMAIL}</td>
-                        <td><button type="button" class="btn btn-primary">修改</button></td>
+                        <td>${data.EMPPWD}</td>
+                        <td><button type="button" class="btn btn-primary btnedit" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id = ${data.id}> 修改</button></td>
                         <td><button type="button" class="btn btn-danger btndelete" data-id = ${data.id}>刪除</button></td>
                         </tr>`;
                         $(`#memtable tbody`).append(strtr);
@@ -74,7 +130,7 @@
                         <td>${data.EMPNAME}</td>
                         <td>${data.PHONE}</td>
                         <td>${data.EMAIL}</td>
-                        <td><button type="button" class="btn btn-primary">修改</button></td>
+                        <td><button type="button" class="btn btn-primary btnedit" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id = ${data.id}">修改</button></td>
                         <td><button type="button" class="btn btn-danger btndelete">刪除</button></td>
                         </tr>`;
                     $(`#memtable tbody`).append(strtr);
@@ -82,23 +138,94 @@
             });
         }
         //新增
+        $(`#btncreate`).on('click', function () {
+            $(`#btncomfrom`).data('id', '');
+            $(`.modal input`).val('');
+            $(`#INPUTEMPID`).removeAttr('readonly').css('background-color', '');
+        });
         //修改
+        $(`#memtable tbody`).on('click', '.btnedit', function () {
+            let id = $(this).data('id');
+            $(`#INPUTEMPID`).attr("readonly", "readonly").css('background-color', 'darkgrey');
+            tempDataList.forEach((data, index) => {
+                if (data.id === id) {
+                    $(`#INPUTEMPID`).val(data.EMPID);
+                    $(`#INPUTEMPNAME`).val(data.EMPNAME);
+                    $(`#INPUTEMAIL`).val(data.EMAIL);
+                    $(`#INPUTPHONE`).val(data.PHONE);
+                    $(`#EMPPWD`).val(data.EMPPWD);
+                    $(`#btncomfrom`).data('id', data.id)
+                }
+            });
+        });
+        //確認(修改/新增)
+        $(`#btncomfrom`).on('click', function () {
+            debugger;
+            let id = $(`#btncomfrom`).data('id');
+            var data = {
+                id : id,
+                EMPID: $(`#INPUTEMPID`).val(),
+                EMPNAME: $(`#INPUTEMPNAME`).val(),
+                PHONE: $(`#INPUTPHONE`).val(),
+                EMAIL: $(`#INPUTEMAIL`).val(),
+                EMPPWD: $(`#EMPPWD`).val()
+            };
+            //新增
+            if (id === '') {
+                debugger;
+                data.id = null;
+                $.ajax({
+                    type: 'Post',
+                    url: "https://localhost:44328/EMPL/createEMPL",
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function (result) {
+                        debugger;
+                        alert("新增完成");
+                        getAllMember();
+                    },
+                    error: function (err) {
+                        debugger;
+                        alert("連線異常");
+                    }
+                });
+            }
+            //修改
+            else {
+                $.ajax({
+                    type: 'Post',
+                    url: "https://localhost:44328/EMPL/editEMPL",
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function (result) {
+                        alert("修改完成");
+                        getAllMember();
+                    },
+                    error: function (err) {
+                        alert("連線異常");
+                    }
+                });
+            }
+        });
         //刪除
-        $(`#memtable tbody`).on('click','.btndelete', function () {
+        $(`#memtable tbody`).on('click', '.btndelete', function () {
             debugger;
             let id = $(this).data('id');
             $.ajax({
                 type: "Get",
                 url: `https://localhost:44328/EMPL/deleteEMPL/?id=${id}`,
-                success: function () { 
+                success: function () {
                     alert("刪除成功");
                     getAllMember();
                 },
-                error: function () { 
+                error: function () {
                     alert("刪除失敗");
                     getAllMember();
                 }
             });
+        });
+        $(`.btn-close`).on('click', function () {
+            $(`#modalTour`).prop("display", "none");
         });
     </script>
 </body>
