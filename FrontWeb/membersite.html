@@ -8,6 +8,7 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <script src="/FrontWeb/js/main.js" ;></script>
 </head>
 
 <body>
@@ -89,13 +90,13 @@
         var id = window.localStorage.getItem("id");
         if (id === '' || id === null) {
             alert("請登入");
-            window.location.href = "http://127.0.0.1:5500/FrontWeb/LoginSite.html";
+            window.location.href = FrontDomainUrl + "LoginSite.html";
         }
         // 取得全部會員
         function getAllMember() {
             $.ajax({
                 type: 'get',
-                url: `https://localhost:44328/EMPL/getEMPL?id=${id}`,
+                url: BackDomainUrl + `EMPL/getEMPL?id=${id}`,
                 success: function (result) {
                     tempDataList = JSON.parse(result);
                     $(`#memtable tbody`).empty();
@@ -180,7 +181,7 @@
                 data.id = null;
                 $.ajax({
                     type: 'Post',
-                    url: "https://localhost:44328/EMPL/createEMPL",
+                    url: BackDomainUrl + "EMPL/createEMPL",
                     contentType: 'application/json',
                     data: JSON.stringify(data),
                     success: function (result) {
@@ -198,7 +199,7 @@
             else {
                 $.ajax({
                     type: 'Post',
-                    url: "https://localhost:44328/EMPL/editEMPL",
+                    url: BackDomainUrl + "EMPL/editEMPL",
                     contentType: 'application/json',
                     data: JSON.stringify(data),
                     success: function (result) {
@@ -217,7 +218,7 @@
             let id = $(this).data('id');
             $.ajax({
                 type: "Get",
-                url: `https://localhost:44328/EMPL/deleteEMPL/?id=${id}`,
+                url: BackDomainUrl + `EMPL/deleteEMPL/?id=${id}`,
                 success: function () {
                     alert("刪除成功");
                     getAllMember();
