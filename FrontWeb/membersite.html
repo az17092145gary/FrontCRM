@@ -12,29 +12,31 @@
 </head>
 
 <body>
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-        id="btncreate">新增</button>
-    <div class="input-group mb-3">
-        <input id="memselect" type="text" class="form-control" placeholder="Username" aria-label="Username"
-            aria-describedby="basic-addon1">
-    </div>
-    <button onclick="btnmemselect()" type="button" class="btn btn-secondary">搜尋</button>
+    <div style="margin: 5% 10%;">
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+            id="btncreate">新增</button>
+        <div class="input-group mb-3">
+            <input id="memselect" type="text" class="form-control" placeholder="Username" aria-label="Username"
+                aria-describedby="basic-addon1">
+        </div>
+        <button onclick="btnmemselect()" type="button" class="btn btn-secondary">搜尋</button>
 
-    <table id="memtable" class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">員工編號</th>
-                <th scope="col">姓名</th>
-                <th scope="col">連絡電話</th>
-                <th scope="col">郵件</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+        <table id="memtable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">員工編號</th>
+                    <th scope="col">姓名</th>
+                    <th scope="col">連絡電話</th>
+                    <th scope="col">郵件</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
