@@ -27,7 +27,10 @@
                     <tr>
                         <th scope="col"></th>
                         <th scope="col">員工姓名</th>
-                        <th scope="col">當前預算總額</th>
+                        <th scope="col">收/支</th>
+                        <th scope="col">金額</th>
+                        <th scope="col">車輛</th>
+                        <th scope="col">備註</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -42,20 +45,41 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">員工預算資料</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">採購資料</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                         <label for="EMPID" class="form-label">員工編號</label>
                         <input type="text" style="background-color: darkgrey;" class="form-control" id="INPUTEMPID"
                             placeholder="" value="" readonly>
+                    </div> -->
+                    <div class="col-12">
+                        <label for="payment" class="form-label">收/支</label>
+                        <input type="text" class="form-control" id="payment" placeholder="" value="">
+                        <div class="invalid-feedback">
+                            
+                        </div>
                     </div>
                     <div class="col-12">
-                        <label for="BUDGET" class="form-label">個人預算</label>
-                        <input type="text" class="form-control" id="BUDGET" placeholder="" value="">
+                        <label for="amount" class="form-label">金額</label>
+                        <input type="number" class="form-control" id="amount" placeholder="" value="">
                         <div class="invalid-feedback">
                             請輸入金額
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="car" class="form-label">車輛訊息</label>
+                        <input type="text" class="form-control" id="car" placeholder="" value="">
+                        <div class="invalid-feedback">
+                            請輸入車輛訊息
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="memo" class="form-label">備註</label>
+                        <input type="text" class="form-control" id="memo" placeholder="" value="">
+                        <div class="invalid-feedback">
+                            
                         </div>
                     </div>
                 </div>
@@ -75,12 +99,12 @@
             alert("請登入");
             window.location.href = FrontDomainUrl + "LoginSite.html";
         }
-        // 取得全部會員
+        // 取得資料
         function get() {
             console.log(id);
             $.ajax({
                 type: 'get',
-                url: BackDomainUrl+"api/Budget?user="+id,
+                url: BackDomainUrl+"api/Amount_D?user="+id,
                 //data : memEMPID,
                 success: function (result) {
                     tempDataList = JSON.parse(result);
@@ -88,9 +112,12 @@
                     tempDataList.forEach((data, index) => {
                         let strtr = `<tr>
                         <th scope="row">${index + 1}</th>
-                        <td>${data.empname}</td>
-                        <td>${data.budget.numberFormat(0,".",",")}</td>
-                        <td><button type="button" class="btn btn-primary btnedit" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id = "${data.empid}">修改</button></td>
+                        <td>${data.empnm}</td>
+                        <td>${data.payment == "P" ? "支出":"新增"}</td>
+                        <td>${data.amount.numberFormat(0,".",",")}</td>
+                        <td>${data.car}</td>
+                        <td>${data.memo}</td>
+                        <td><button type="button" class="btn btn-primary btnedit" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id = "${data.id}">修改</button></td>
                         </tr>`;
                         //<td><button type="button" class="btn btn-danger">刪除</button></td>
                         $(`#memtable tbody`).append(strtr);
@@ -107,12 +134,15 @@
             $(`#memtable tbody`).empty();
             let number = 1;
             tempDataList.forEach((data, index) => {
-                if (data.empname.includes($(`#memselect`).val())) {
+                if (data.empnm.includes($(`#memselect`).val())) {
                     let strtr = `<tr>
                         <th scope="row">${number}</th>
-                        <td>${data.empname}</td>
-                        <td>${data.budget.numberFormat(0,".",",")}</td>
-                        <td><button type="button" class="btn btn-primary btnedit" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id = "${data.empid}">修改</button></td>
+                        <td>${data.empnm}</td>
+                        <td>${data.payment == "P" ? "支出":"新增"}</td>
+                        <td>${data.amount.numberFormat(0,".",",")}</td>
+                        <td>${data.car}</td>
+                        <td>${data.memo}</td>
+                        <td><button type="button" class="btn btn-primary btnedit" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id = "${data.id}">修改</button></td>
                         </tr>`;
                         //<td><button type="button" class="btn btn-danger">刪除</button></td>
                         $(`#memtable tbody`).append(strtr);
@@ -125,18 +155,27 @@
             $(`#btncomfrom`).data('id', '');
             $(`.modal input`).val('');
             $(`#INPUTEMPID`).removeAttr('readonly').css('background-color', '');
+            $(`#paymentvalue`).remove();
+            $(`#payment`).css("display","");
         });
         //修改
         $(`#memtable tbody`).on('click', '.btnedit', function () {
             let id = $(this).data('id');
+            $(`#paymentvalue`).remove();
             tempDataList.forEach((data, index) => {
-                if (data.empid === id) {
+                if (data.id === id) {
                     $(`#btncomfrom`).data("id",data.id)
-                    $(`#INPUTEMPID`).val(data.empid);
-                    $(`#BUDGET`).val(data.budegt);
+                    //$(`#INPUTEMPID`).val(data.empid);
+                    $(`#payment`).val(data.payment);
+                    $(`#amount`).val(data.amount);
+                    $(`#car`).val(data.car);
+                    $(`#memo`).val(data.memo);
+                    $(`#payment`).prev().after(`<input type="text" class="form-control" id="paymentvalue" placeholder="" value="${data.payment == "P"? "支出":"增加"}">`);
                 }
             });
             $(`#INPUTEMPID`).attr("readonly", "readonly").css('background-color', 'gray');
+            $(`#paymentvalue`).attr("readonly", "readonly").css('background-color', 'gray');
+            $(`#payment`).css("display","none");
         });
         //刪除
         //確認(修改/新增)
@@ -145,20 +184,23 @@
             let empid = window.localStorage.getItem("EMPID");
             var data = {
                 id: id,
-                empid: $(`#INPUTEMPID`).val(),
-                budget: $(`#BUDGET`).val()
+                empid: empid,
+                payment: $(`#payment`).val(),
+                amount:$(`#amount`).val(),
+                car:$(`#car`).val(),
+                memo:$(`#memo`).val()
             };
             //新增
             if (id === '') {
                 data.id = null;
                 $.ajax({
                     type: 'Post',
-                    url: BackDomainUrl+"api/Budget/create?user="+empid,
+                    url: BackDomainUrl+"api/Amount_D/create?user="+empid,
                     contentType: 'application/json',
                     data: JSON.stringify(data),
                     success: function (result) {
-                        var data = result;
-                        if(data.ErrorMsg){
+                        //var data = JSON.parse(result);
+                        if(result.ErrorMsg){
                             alert(data.ErrorMsg);
                         }else{
                             alert("新增完成");
@@ -174,13 +216,13 @@
             else {
                 $.ajax({
                     type: 'Post',
-                    url: BackDomainUrl+"api/Budget/edit?user="+empid,
+                    url: BackDomainUrl+"api/Amount_D/edit?user="+empid,
                     contentType: 'application/json',
                     data: JSON.stringify(data),
                     success: function (result) {
-                        var data = result;
-                        console.log(data)
-                        if(data.ErrorMsg){
+                        console.log(result)
+                        //var data = JSON.parse(result);
+                        if(result.ErrorMsg){
                             alert(data.ErrorMsg);
                         }else{
                             alert("修改完成");
