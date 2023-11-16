@@ -3,10 +3,11 @@
 
 <head>
     <style>
-         table th{
+        table th {
             width: 40px;
         }
-        table td{
+
+        table td {
             width: 40px;
         }
     </style>
@@ -53,15 +54,15 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">會員資料</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">客戶聯絡資料</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                         <label for="EMPNAME" class="form-label">員工</label>
                         <input type="text" style="background-color: darkgrey;" class="form-control" id="EMPNAME"
                             placeholder="" value="" readonly>
-                    </div>
+                    </div> -->
                     <div class="col-12">
                         <label for="CUSTNAME" class="form-label">客戶名稱</label>
                         <input type="text" class="form-control" id="INPUTCUSTNAME" placeholder="" value="">
@@ -106,7 +107,7 @@
                     </div>
                     <div class="col-12">
                         <label for="MEMO" class="form-label">備註</label>
-                        <input type="password" class="form-control" id="INPUTMEMO">
+                        <textarea style="max-height: 60px;" class="form-control" id="INPUTMEMO"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -131,6 +132,7 @@
                 type: 'get',
                 url: BackDomainUrl + `api/Note?user=${EMPID}`,
                 success: function (result) {
+                    debugger;
                     tempDataList = result;
                     $(`#memtable tbody`).empty();
                     tempDataList.forEach((data, index) => {
@@ -144,10 +146,10 @@
                         <td>${data.MODEL}</td>
                         <td>${data.COLOR}</td>
                         <td>${data.STATUS}</td>
-                        <td>${data.KM.numberFormat(0,".",",")}</td>
+                        <td>${data.KM.numberFormat(0, ".", ",")}</td>
                         <td>${data.MEMO}</td>
-                        <td><button type="button" class="btn btn-primary btnedit" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id = ${data.id}> 修改</button></td>
-                        <td><button type="button" class="btn btn-danger btndelete" data-id = ${data.id}>刪除</button></td>
+                        <td><button type="button" class="btn btn-primary btnedit" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id = ${data.ID}> 修改</button></td>
+                        <td><button type="button" class="btn btn-danger btndelete" data-id = ${data.ID}>刪除</button></td>
                         </tr>`;
                         $(`#memtable tbody`).append(strtr);
                     });
@@ -167,13 +169,19 @@
                 if (data.EMPNAME.includes(value) || data.EMPID.includes(value)) {
                     debugger;
                     let strtr = `<tr>
-                        <th scope="row">${index + 1}</th>
-                        <td>${data.EMPID}</td>
+                        <th scope="row" >${index + 1}</th>
                         <td>${data.EMPNAME}</td>
-                        <td>${data.PHONE}</td>
-                        <td>${data.EMAIL}</td>
-                        <td><button type="button" class="btn btn-primary btnedit" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id = ${data.id}">修改</button></td>
-                        <td><button type="button" class="btn btn-danger btndelete">刪除</button></td>
+                        <td>${data.CUSTNAME}</td>
+                        <td>${data.CUSTPHONE}</td>
+                        <td>${data.BRAND}</td>
+                        <td>${data.SERIES}</td>
+                        <td>${data.MODEL}</td>
+                        <td>${data.COLOR}</td>
+                        <td>${data.STATUS}</td>
+                        <td>${data.KM.numberFormat(0, ".", ",")}</td>
+                        <td>${data.MEMO}</td>
+                        <td><button type="button" class="btn btn-primary btnedit" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id = ${data.ID}> 修改</button></td>
+                        <td><button type="button" class="btn btn-danger btndelete" data-id = ${data.ID}>刪除</button></td>
                         </tr>`;
                     $(`#memtable tbody`).append(strtr);
                     debugger;
@@ -184,20 +192,25 @@
         $(`#btncreate`).on('click', function () {
             $(`#btncomfrom`).data('id', '');
             $(`.modal input`).val('');
-            $(`#INPUTEMPID`).removeAttr('readonly').css('background-color', '');
+            $(`.modal textarea`).val('');
+            $(`#EMPNAME`).val(EMPID);
         });
         //修改
         $(`#memtable tbody`).on('click', '.btnedit', function () {
             let id = $(this).data('id');
-            $(`#INPUTEMPID`).attr("readonly", "readonly").css('background-color', 'darkgrey');
+            $(`.modal textarea`).val('');
             tempDataList.forEach((data, index) => {
-                if (data.id === id) {
-                    $(`#INPUTEMPID`).val(data.EMPID);
-                    $(`#INPUTEMPNAME`).val(data.EMPNAME);
-                    $(`#INPUTEMAIL`).val(data.EMAIL);
-                    $(`#INPUTPHONE`).val(data.PHONE);
-                    $(`#EMPPWD`).val(data.EMPPWD);
-                    $(`#btncomfrom`).data('id', data.id)
+                if (data.ID === id) {
+                    $(`#INPUTCUSTNAME`).val(data.CUSTNAME);
+                    $(`#INPUTCUSTPHONE`).val(data.CUSTPHONE);
+                    $(`#INPUTBRAND`).val(data.BRAND);
+                    $(`#INPUTSERIES`).val(data.SERIES);
+                    $(`#INPUTCOLOR`).val(data.COLOR);
+                    $(`#INPUTSTATUS`).val(data.STATUS);
+                    $(`#INPUTKM`).val(data.KM.numberFormat(0, ".", ","));
+                    $(`#INPUTMODEL`).val(data.MODEL);
+                    $(`#INPUTMEMO`).val(data.MEMO);
+                    $(`#btncomfrom`).data('id', data.ID)
                 }
             });
         });
@@ -207,11 +220,16 @@
             let id = $(`#btncomfrom`).data('id');
             var data = {
                 id: id,
-                EMPID: $(`#INPUTEMPID`).val(),
-                EMPNAME: $(`#INPUTEMPNAME`).val(),
-                PHONE: $(`#INPUTPHONE`).val(),
-                EMAIL: $(`#INPUTEMAIL`).val(),
-                EMPPWD: $(`#EMPPWD`).val()
+                EMPID:EMPID,
+                CUSTNAME: $(`#INPUTCUSTNAME`).val(),
+                CUSTPHONE: $(`#INPUTCUSTPHONE`).val(),
+                BRAND: $(`#INPUTBRAND`).val(),
+                SERIES: $(`#INPUTSERIES`).val(),
+                COLOR: $(`#INPUTCOLOR`).val(),
+                STATUS: $(`#INPUTSTATUS`).val(),
+                KM: $(`#INPUTKM`).val(),
+                MODEL: $(`#INPUTMODEL`).val(),
+                MEMO: $(`#INPUTMEMO`).val()
             };
             //新增
             if (id === '') {
@@ -219,7 +237,7 @@
                 data.id = null;
                 $.ajax({
                     type: 'Post',
-                    url: BackDomainUrl + "EMPL/createEMPL",
+                    url: BackDomainUrl + `api/Note/create?user=${EMPID}`,
                     contentType: 'application/json',
                     data: JSON.stringify(data),
                     success: function (result) {
@@ -237,7 +255,7 @@
             else {
                 $.ajax({
                     type: 'Post',
-                    url: BackDomainUrl + "EMPL/editEMPL",
+                    url: BackDomainUrl + `api/Note/edit?user=${EMPID}`,
                     contentType: 'application/json',
                     data: JSON.stringify(data),
                     success: function (result) {
@@ -256,7 +274,7 @@
             let id = $(this).data('id');
             $.ajax({
                 type: "Get",
-                url: BackDomainUrl + `EMPL/deleteEMPL/?id=${id}`,
+                url: BackDomainUrl + `api/Note/detele/?id=${id}`,
                 success: function () {
                     alert("刪除成功");
                     getAllMember();
