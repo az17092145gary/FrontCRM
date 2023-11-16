@@ -70,13 +70,17 @@
     <script>
         var tempDataList;
         //window.localStorage.setItem("id","A001");
-        var memEMPID= window.localStorage.getItem("id") || "";
+        var id = window.localStorage.getItem("EMPID");
+        if (id === '' || id === null) {
+            alert("請登入");
+            window.location.href = FrontDomainUrl + "LoginSite.html";
+        }
         // 取得全部會員
         function get() {
-            console.log(memEMPID);
+            console.log(id);
             $.ajax({
                 type: 'get',
-                url: BackDomainUrl+"api/Budget?user="+memEMPID,
+                url: BackDomainUrl+"api/Budget?user="+id,
                 //data : memEMPID,
                 success: function (result) {
                     tempDataList = JSON.parse(result);
@@ -148,7 +152,7 @@
                 data.id = null;
                 $.ajax({
                     type: 'Post',
-                    url: BackDomainUrl+"api/Budget/create?user="+memEMPID,
+                    url: BackDomainUrl+"api/Budget/create?user="+id,
                     contentType: 'application/json',
                     data: JSON.stringify(data),
                     success: function (result) {
@@ -169,7 +173,7 @@
             else {
                 $.ajax({
                     type: 'Post',
-                    url: BackDomainUrl+"api/Budget/edit?user="+memEMPID,
+                    url: BackDomainUrl+"api/Budget/edit?user="+id,
                     contentType: 'application/json',
                     data: JSON.stringify(data),
                     success: function (result) {
