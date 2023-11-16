@@ -90,7 +90,8 @@
     <script>
         var tempDataList;
         var id = window.localStorage.getItem("id");
-        if (id === '' || id === null) {
+        var EMPID = window.localStorage.getItem("EMPID");
+        if (EMPID === '' || EMPID === null) {
             alert("請登入");
             window.location.href = FrontDomainUrl + "LoginSite.html";
         }
@@ -98,7 +99,7 @@
         function getAllMember() {
             $.ajax({
                 type: 'get',
-                url: BackDomainUrl + `EMPL/getEMPL?id=${id}`,
+                url: BackDomainUrl + `EMPL/getEMPL?EMPID=${EMPID}`,
                 success: function (result) {
                     tempDataList = JSON.parse(result);
                     $(`#memtable tbody`).empty();
