@@ -1,4 +1,5 @@
-var FrontDomainUrl = "http://127.0.0.1:5500/FrontWeb/";
+//var FrontDomainUrl = "http://127.0.0.1:5500/FrontWeb/";
+var FrontDomainUrl = "https://az17092145gary.github.io/FrontCRM/FrontWeb/";
 var BackDomainUrl = "https://localhost:7226/";
 Number.prototype.numberFormat = function(c, d, t){
     var n = this, 
