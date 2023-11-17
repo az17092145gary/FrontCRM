@@ -19,19 +19,45 @@
 </head>
 
 <body>
-    <div style="margin: 5% 10%;">
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-            id="btncreate">新增</button>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+              <img src="/FrontWeb/image/logo2.jpg" alt="Logo" height="30" class="d-inline-block align-text-top">
+              JINDI RESERVA
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link"  href="/FrontWeb/membersite.html">員工資料</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/FrontWeb/budget.html">預算設定</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/FrontWeb/Amount_D.html">採購資料</a>
+                  </li>
+                  <li class="nav-item  active">
+                    <a class="nav-link fs-5" aria-current="page" href="/FrontWeb/Note.html"><b>客戶紀錄</b></a>
+                  </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div style="margin: 2% 5%;">
         <div class="input-group mb-3">
-            <input id="memselect" type="text" class="form-control" placeholder="Username" aria-label="Username"
+            <input id="memselect" type="text" class="form-control" placeholder="姓名" aria-label="Username"
                 aria-describedby="basic-addon1">
         </div>
         <button onclick="btnmemselect()" type="button" class="btn btn-secondary">搜尋</button>
-
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+        id="btncreate">新增</button>
         <table id="memtable" class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">序</th>
                     <th scope="col">員工</th>
                     <th scope="col">客戶名稱</th>
                     <th scope="col">客戶電話</th>
@@ -149,8 +175,8 @@
                         <td>${data.KM.numberFormat(0, ".", ",")}</td>
                         <td>${data.MEMO}</td>
                         <td><button type="button" class="btn btn-primary btnedit" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id = ${data.ID}> 修改</button></td>
-                        <td><button type="button" class="btn btn-danger btndelete" data-id = ${data.ID}>刪除</button></td>
                         </tr>`;
+                        //<td><button type="button" class="btn btn-danger btndelete" data-id = ${data.ID}>刪除</button></td>
                         $(`#memtable tbody`).append(strtr);
                     });
                 },
@@ -181,8 +207,8 @@
                         <td>${data.KM.numberFormat(0, ".", ",")}</td>
                         <td>${data.MEMO}</td>
                         <td><button type="button" class="btn btn-primary btnedit" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id = ${data.ID}> 修改</button></td>
-                        <td><button type="button" class="btn btn-danger btndelete" data-id = ${data.ID}>刪除</button></td>
                         </tr>`;
+                        //<td><button type="button" class="btn btn-danger btndelete" data-id = ${data.ID}>刪除</button></td>
                     $(`#memtable tbody`).append(strtr);
                     debugger;
                 }

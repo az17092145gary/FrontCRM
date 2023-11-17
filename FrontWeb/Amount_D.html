@@ -12,20 +12,48 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+              <img src="/FrontWeb/image/logo2.jpg" alt="Logo" height="30" class="d-inline-block align-text-top">
+              JINDI RESERVA
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/FrontWeb/membersite.html">員工資料</a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link" href="/FrontWeb/budget.html">預算設定</a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link  fs-5" aria-current="page"  href="/FrontWeb/Amount_D.html"><b>採購資料</b></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/FrontWeb/Note.html">客戶紀錄</a>
+                  </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div>
-        <div style="margin: 5% 10%;">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-            id="btncreate">新增</button>
-            <div class="input-group mt-3">
+        <div style="margin: 2% 5%;">
+            
+            <div class="input-group mb-3">
                 <input id="memselect" type="text" class="form-control" placeholder="姓名" aria-label="Username"
                     aria-describedby="basic-addon1">
             </div>
-            <button onclick="btnmemselect()" type="button" class="btn btn-primary">搜尋</button>
-        
+            <button onclick="btnmemselect()" type="button" class="btn btn-secondary">搜尋</button>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+            id="btncreate">新增</button>
             <table id="memtable" class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col"></th>
+                        <th scope="col">序</th>
                         <th scope="col">員工姓名</th>
                         <th scope="col">收/支</th>
                         <th scope="col">金額</th>
