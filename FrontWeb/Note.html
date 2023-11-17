@@ -166,7 +166,7 @@
             debugger;
             let value = $(`#memselect`).val();
             tempDataList.forEach((data, index) => {
-                if (data.EMPNAME.includes(value) || data.EMPID.includes(value)) {
+                if (data.EMPNAME.includes(value) || data.CUSTNAME.includes(value)) {
                     debugger;
                     let strtr = `<tr>
                         <th scope="row" >${index + 1}</th>
@@ -220,14 +220,14 @@
             let id = $(`#btncomfrom`).data('id');
             var data = {
                 id: id,
-                EMPID:EMPID,
+                EMPLID: EMPID,
                 CUSTNAME: $(`#INPUTCUSTNAME`).val(),
                 CUSTPHONE: $(`#INPUTCUSTPHONE`).val(),
                 BRAND: $(`#INPUTBRAND`).val(),
                 SERIES: $(`#INPUTSERIES`).val(),
                 COLOR: $(`#INPUTCOLOR`).val(),
                 STATUS: $(`#INPUTSTATUS`).val(),
-                KM: $(`#INPUTKM`).val(),
+                KM: parseInt($(`#INPUTKM`).val()),
                 MODEL: $(`#INPUTMODEL`).val(),
                 MEMO: $(`#INPUTMEMO`).val()
             };
@@ -253,6 +253,7 @@
             }
             //修改
             else {
+                debugger;
                 $.ajax({
                     type: 'Post',
                     url: BackDomainUrl + `api/Note/edit?user=${EMPID}`,
@@ -274,7 +275,7 @@
             let id = $(this).data('id');
             $.ajax({
                 type: "Get",
-                url: BackDomainUrl + `api/Note/detele/?id=${id}`,
+                url: BackDomainUrl + `api/Note/delete/?id=${id}`,
                 success: function () {
                     alert("刪除成功");
                     getAllMember();
