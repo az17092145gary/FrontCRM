@@ -253,7 +253,7 @@
                 SERIES: $(`#INPUTSERIES`).val(),
                 COLOR: $(`#INPUTCOLOR`).val(),
                 STATUS: $(`#INPUTSTATUS`).val(),
-                KM: parseInt($(`#INPUTKM`).val()),
+                KM: parseInt($(`#INPUTKM`).val().replace(/,/g, ''), 10),
                 MODEL: $(`#INPUTMODEL`).val(),
                 MEMO: $(`#INPUTMEMO`).val()
             };
