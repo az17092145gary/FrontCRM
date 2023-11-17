@@ -58,34 +58,33 @@
             window.location.href = FrontDomainUrl + "LoginSite.html";
         }
         $.ajax({
-                type: 'get',
-                url: BackDomainUrl+"api/getAmountPie?user="+id,
-                //data : memEMPID,
-                success: function (result) {
-                    tempDataList = JSON.parse(result);
-                    let pieArea = $(`#pieArea`);
-                    pieArea.html("");
-                    tempDataList.forEach((data, index) => {
-                        let strtr = `
-                        <div class="card" style="width: 18rem;margin: 1%;">
-                            <div id="${data.empid}" style="height: 200px;"></div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">${data.emplname}</li>
-                                    <li class="list-group-item">採購總計:${data.balance}</li>
-                                    <li class="list-group-item">剩餘預算:${data.total}</li>
-                                </ul>
-                        </div>`;
-                        pieArea.append(strtr);
-                        // 基于准备好的dom，初始化echarts实例
-                        var myChart = echarts.init(document.getElementById(data.empid));
-                        // 使用刚指定的配置项和数据显示图表。
-                        myChart.setOption(data.root);
-                    });
-                },
-                error: function (err) {
-
-                }
-            });
+            type: 'get',
+            url: BackDomainUrl+"api/getAmountPie?user="+id,
+            //data : memEMPID,
+            success: function (result) {
+                tempDataList = JSON.parse(result);
+                let pieArea = $(`#pieArea`);
+                pieArea.html("");
+                tempDataList.forEach((data, index) => {
+                    let strtr = `
+                    <div class="card" style="width: 18rem;margin: 1%;">
+                        <div id="${data.empid}" style="height: 200px;"></div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">${data.emplname}</li>
+                                <li class="list-group-item">採購總計:${data.balance}</li>
+                                <li class="list-group-item">剩餘預算:${data.total}</li>
+                            </ul>
+                    </div>`;
+                    pieArea.append(strtr);
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init(document.getElementById(data.empid));
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(data.root);
+                });
+            },
+            error: function (err) {
+            }
+        });
     </script>
 </body>
 </html>
