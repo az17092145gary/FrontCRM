@@ -197,6 +197,10 @@
             $(`#INPUTEMPID`).removeAttr('readonly').css('background-color', '');
             $(`#paymentvalue`).remove();
             $(`#payment`).css("display","");
+            if(window.localStorage.getItem("EMPID") != "A000"){
+                $(`#payment`).val("P");
+                $(`#payment`).attr("readonly","readonly");
+            }
         });
         //修改
         $(`#memtable tbody`).on('click', '.btnedit', function () {
