@@ -106,6 +106,19 @@
         }
         // 取得全部會員
         function get() {
+            $.ajax({
+                type:'GET',
+                url:"https://0530-124-218-106-67.ngrok-free.app",
+                headers: new Headers({
+                    "ngrok-skip-browser-warning": "69420"
+                }),
+                success:function(result){
+
+                },
+                error:function(err){
+
+                }
+            })
             console.log(id);
             $.ajax({
                 type: 'get',
