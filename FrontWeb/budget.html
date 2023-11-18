@@ -106,25 +106,12 @@
         }
         // 取得全部會員
         function get() {
-            $.ajax({
-                type:'GET',
-                url:"https://0530-124-218-106-67.ngrok-free.app",
-                headers: new Headers({
-                    "ngrok-skip-browser-warning": "69420"
-                }),
-                success:function(result){
-                    console.log(result)
-                },
-                error:function(err){
-
-                }
-            })
             console.log(id);
             $.ajax({
                 type: 'get',
                 url: BackDomainUrl+"api/Budget?user="+id,
                 headers: new Headers({
-                    "ngrok-skip-browser-warning": "69420"
+                    "ngrok-skip-browser-warning": "true"
                 }),
                 //data : memEMPID,
                 success: function (result) {
