@@ -199,7 +199,7 @@
             $(`#payment`).css("display","");
             if(window.localStorage.getItem("EMPID") != "A000"){
                 $(`#payment`).val("P");
-                $(`#payment`).attr("readonly","readonly");
+                $(`#payment`).attr("readonly","readonly").css("background-color","gray");
             }
         });
         //修改
