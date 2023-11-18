@@ -114,6 +114,7 @@
                 || (oldwidth < 900 && nowwidth > 900)
                 || (oldwidth > 550 && nowwidth < 550)
                 || (oldwidth < 550 && nowwidth > 550)){
+                    oldwidth = nowwidth
                     $(`#pieArea`).html("")
                     pie();
                 }
