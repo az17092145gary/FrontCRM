@@ -159,6 +159,9 @@
         function getAllMember() {
             $.ajax({
                 type: 'get',
+                headers: {
+                    "ngrok-skip-browser-warning": "true"
+                },
                 url: BackDomainUrl + `api/Note?user=${EMPID}`,
                 success: function (result) {
                     debugger;
@@ -266,6 +269,9 @@
                 data.id = null;
                 $.ajax({
                     type: 'Post',
+                    headers: {
+                        "ngrok-skip-browser-warning": "true"
+                    },
                     url: BackDomainUrl + `api/Note/create?user=${EMPID}`,
                     contentType: 'application/json',
                     data: JSON.stringify(data),
@@ -285,6 +291,9 @@
                 debugger;
                 $.ajax({
                     type: 'Post',
+                    headers: {
+                        "ngrok-skip-browser-warning": "true"
+                    },
                     url: BackDomainUrl + `api/Note/edit?user=${EMPID}`,
                     contentType: 'application/json',
                     data: JSON.stringify(data),
@@ -304,6 +313,9 @@
             let id = $(this).data('id');
             $.ajax({
                 type: "Get",
+                headers: {
+                    "ngrok-skip-browser-warning": "true"
+                },
                 url: BackDomainUrl + `api/Note/delete/?id=${id}`,
                 success: function () {
                     alert("刪除成功");

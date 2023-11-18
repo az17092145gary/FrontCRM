@@ -64,6 +64,9 @@
         function pie(){
             $.ajax({
                 type: 'get',
+                headers: {
+                    "ngrok-skip-browser-warning": "true"
+                },
                 url: BackDomainUrl+"api/Statistic?user="+id,
                 //data : memEMPID,
                 success: function (result) {

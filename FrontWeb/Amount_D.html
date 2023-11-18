@@ -135,6 +135,9 @@
             console.log(id);
             $.ajax({
                 type: 'get',
+                headers: {
+                    "ngrok-skip-browser-warning": "true"
+                },
                 url: BackDomainUrl+"api/Amount_D?user="+id,
                 //data : memEMPID,
                 success: function (result) {
@@ -226,6 +229,9 @@
                 data.id = null;
                 $.ajax({
                     type: 'Post',
+                    headers: {
+                        "ngrok-skip-browser-warning": "true"
+                    },
                     url: BackDomainUrl+"api/Amount_D/create?user="+empid,
                     contentType: 'application/json',
                     data: JSON.stringify(data),
@@ -247,6 +253,9 @@
             else {
                 $.ajax({
                     type: 'Post',
+                    headers: {
+                        "ngrok-skip-browser-warning": "true"
+                    },
                     url: BackDomainUrl+"api/Amount_D/edit?user="+empid,
                     contentType: 'application/json',
                     data: JSON.stringify(data),

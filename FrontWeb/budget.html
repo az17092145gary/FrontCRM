@@ -185,6 +185,9 @@
                 data.id = null;
                 $.ajax({
                     type: 'Post',
+                    headers: {
+                        "ngrok-skip-browser-warning": "true"
+                    },
                     url: BackDomainUrl+"api/Budget/create?user="+empid,
                     contentType: 'application/json',
                     data: JSON.stringify(data),
@@ -206,6 +209,9 @@
             else {
                 $.ajax({
                     type: 'Post',
+                    headers: {
+                        "ngrok-skip-browser-warning": "true"
+                    },
                     url: BackDomainUrl+"api/Budget/edit?user="+empid,
                     contentType: 'application/json',
                     data: JSON.stringify(data),

@@ -128,6 +128,9 @@
         function getAllMember() {
             $.ajax({
                 type: 'get',
+                headers: {
+                    "ngrok-skip-browser-warning": "true"
+                },
                 url: BackDomainUrl + `EMPL/getEMPL?EMPID=${EMPID}`,
                 success: function (result) {
                     tempDataList = JSON.parse(result);
@@ -213,6 +216,9 @@
                 data.id = null;
                 $.ajax({
                     type: 'Post',
+                    headers: {
+                        "ngrok-skip-browser-warning": "true"
+                    },
                     url: BackDomainUrl + "EMPL/createEMPL",
                     contentType: 'application/json',
                     data: JSON.stringify(data),
@@ -231,6 +237,9 @@
             else {
                 $.ajax({
                     type: 'Post',
+                    headers: {
+                        "ngrok-skip-browser-warning": "true"
+                    },
                     url: BackDomainUrl + "EMPL/editEMPL",
                     contentType: 'application/json',
                     data: JSON.stringify(data),
@@ -250,6 +259,9 @@
             let id = $(this).data('id');
             $.ajax({
                 type: "Get",
+                headers: {
+                    "ngrok-skip-browser-warning": "true"
+                },
                 url: BackDomainUrl + `EMPL/deleteEMPL/?id=${id}`,
                 success: function () {
                     alert("刪除成功");

@@ -82,6 +82,9 @@
       };
       $.ajax({
         type: "POST",
+        headers: {
+                    "ngrok-skip-browser-warning": "true"
+                },
         url: BackDomainUrl + "Login",
         contentType: 'application/json',
         data: JSON.stringify(data),
