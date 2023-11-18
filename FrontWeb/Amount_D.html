@@ -222,6 +222,7 @@
         $(`#btncomfrom`).on('click', function () {
             let id = $(`#btncomfrom`).data('id');
             let empid = window.localStorage.getItem("EMPID");
+            console.log($(`#empinput`).val());
             var data = {
                 id: id,
                 empid: $(`#empinput`).val() || empid,
