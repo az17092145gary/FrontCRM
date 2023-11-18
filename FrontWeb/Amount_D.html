@@ -80,11 +80,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- <div class="col-12">
+                    <div id="empinput" class="col-12" style="display: none;">
                         <label for="EMPID" class="form-label">員工編號</label>
                         <input type="text" style="background-color: darkgrey;" class="form-control" id="INPUTEMPID"
                             placeholder="" value="" readonly>
-                    </div> -->
+                    </div>
                     <div class="col-12">
                         <label for="payment" class="form-label">收/支</label>
                         <input type="text" class="form-control" id="payment" placeholder="" value="">
@@ -133,6 +133,12 @@
         // 取得資料
         function get() {
             console.log(id);
+            if(id == "A000"){
+                $(`#empinput`).css("display","");
+            }
+            else{
+                $(`#empinput`).css("display","none");
+            }
             $.ajax({
                 type: 'get',
                 headers: {
