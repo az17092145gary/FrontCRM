@@ -109,10 +109,10 @@
             console.log(id);
             $.ajax({
                 type: 'get',
-                url: BackDomainUrl+"api/Budget?user="+id,
                 headers: new Headers({
                     "ngrok-skip-browser-warning": "true"
                 }),
+                url: BackDomainUrl+"api/Budget?user="+id,
                 //data : memEMPID,
                 success: function (result) {
                     tempDataList = JSON.parse(result);
