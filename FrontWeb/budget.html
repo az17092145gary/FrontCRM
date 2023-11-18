@@ -110,6 +110,10 @@
             $.ajax({
                 type: 'get',
                 url: BackDomainUrl+"api/Budget?user="+id,
+                headers: new Headers({
+                    "ngrok-skip-browser-warning": "69420",
+                    "authorization":localStorage.getItem("loginToken")
+                }),
                 //data : memEMPID,
                 success: function (result) {
                     tempDataList = JSON.parse(result);
