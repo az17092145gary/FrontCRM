@@ -109,15 +109,17 @@
         }
         pie();
         $(window).resize(()=>{
-            let nowwidth = window.innerWidth;
-            if((oldwidth > 900 && nowwidth < 900)
-                || (oldwidth < 900 && nowwidth > 900)
-                || (oldwidth > 550 && nowwidth < 550)
-                || (oldwidth < 550 && nowwidth > 550)){
-                    oldwidth = nowwidth
-                    $(`#pieArea`).html("")
-                    pie();
-                }
+            // let nowwidth = window.innerWidth;
+            // if((oldwidth > 900 && nowwidth < 900)
+            //     || (oldwidth < 900 && nowwidth > 900)
+            //     || (oldwidth > 550 && nowwidth < 550)
+            //     || (oldwidth < 550 && nowwidth > 550)){
+            //         oldwidth = nowwidth
+            //         $(`#pieArea`).html("")
+            //         pie();
+            //     }
+            $(`#pieArea`).html("")
+            pie();
         });
     </script>
 </body>
