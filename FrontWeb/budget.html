@@ -109,9 +109,9 @@
             console.log(id);
             $.ajax({
                 type: 'get',
-                headers: new Headers({
+                headers: {
                     "ngrok-skip-browser-warning": "true"
-                }),
+                },
                 url: BackDomainUrl+"api/Budget?user="+id,
                 //data : memEMPID,
                 success: function (result) {
