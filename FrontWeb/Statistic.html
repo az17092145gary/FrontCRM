@@ -85,7 +85,8 @@
 
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">${data.emplname}</li>
-                                    <li class="list-group-item">採購總計 : ${data.balance.numberFormat(0,".",",")}</li>
+                                    <li class="list-group-item">採購總計 : ${data.pay.numberFormat(0,".",",")}</li>
+                                    <li class="list-group-item">臨時預算 : ${data.nopay.numberFormat(0,".",",")}</li>
                                     <li class="list-group-item">剩餘預算 : ${data.total.numberFormat(0,".",",")}</li>
                                 </ul>
                             </div>
