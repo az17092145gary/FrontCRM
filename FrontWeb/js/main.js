@@ -1,6 +1,7 @@
 //var FrontDomainUrl = "http://127.0.0.1:5500/FrontWeb/";
 var FrontDomainUrl = "https://az17092145gary.github.io/FrontCRM/FrontWeb/";
-var BackDomainUrl = "https://localhost:7226/";
+//var BackDomainUrl = "https://localhost:7226/";
+var BackDomainUrl = "https://0530-124-218-106-67.ngrok-free.app/";
 Number.prototype.numberFormat = function(c, d, t){
     var n = this, 
         c = isNaN(c = Math.abs(c)) ? 2 : c, 
