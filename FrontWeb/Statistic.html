@@ -57,6 +57,7 @@
         var tempDataList;
         var empList = [];
         var id = window.localStorage.getItem("EMPID");
+        var oldwidth = window.innerWidth;
         if (id === '' || id === null) {
             alert("請登入");
             window.location.href = FrontDomainUrl + "LoginSite.html";
@@ -108,8 +109,14 @@
         }
         pie();
         $(window).resize(()=>{
-            $(`#pieArea`).html("")
-            pie();
+            let nowwidth = window.innerWidth;
+            if((oldwidth > 900 && nowwidth < 900)
+                || (oldwidth < 900 && nowwidth > 900)
+                || (oldwidth > 550 && nowwidth < 550)
+                || (oldwidth < 550 && nowwidth > 550)){
+                    $(`#pieArea`).html("")
+                    pie();
+                }
         });
     </script>
 </body>
