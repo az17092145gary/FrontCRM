@@ -12,3 +12,28 @@ Number.prototype.numberFormat = function(c, d, t){
         j = (j = i.length) > 3 ? j % 3 : 0;
        return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
+
+var emplList;
+function getEmplddl(){
+    $.ajax({
+        type:'get',
+        headers: {
+        "ngrok-skip-browser-warning": "true"
+        },
+        url: BackDomainUrl+"EMPL/getAllEMPL",
+        success:function(result){
+            emplList = JSON.parse(result);
+            let emp = $(`#INPUTEMPID`);
+            emp.html("");
+            emplList.forEach((d,i)=>{
+                emp.append(`
+                    <option value="${d.EMPID}">${d.EMPID} ${d.EMPNAME}</option>
+                `);
+                
+            })
+        },
+        error:function(err){
+
+        }
+    })
+}

@@ -125,7 +125,6 @@
     <script src="../FrontWeb/js/main.js";></script>
     <script>
         var tempDataList;
-        var emplList;
         //window.localStorage.setItem("id","A001");
         var id = window.localStorage.getItem("EMPID");
         if (id === '' || id === null) {
@@ -137,28 +136,7 @@
             console.log(id);
             if(id == "A000"){
                 $(`#empinput`).css("display","");
-                $.ajax({
-                    type:'get',
-                    headers: {
-                    "ngrok-skip-browser-warning": "true"
-                    },
-                    url: BackDomainUrl+"EMPL/getAllEMPL",
-                    success:function(result){
-                        emplList = JSON.parse(result);
-                        let emp = $(`#INPUTEMPID`);
-                        emp.html("");
-                        emplList.forEach((d,i)=>{
-                            emp.append(`
-                                <option value="${d.EMPID}">${d.EMPID} ${d.EMPNAME}</option>
-                            `);
-                            
-                        })
-                    },
-                    error:function(err){
-
-                    }
-                })
-                
+                getEmplddl();
             }
             else{
                 $(`#empinput`).css("display","none");

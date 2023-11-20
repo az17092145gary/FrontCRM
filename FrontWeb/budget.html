@@ -77,8 +77,9 @@
                 <div class="modal-body">
                     <div class="col-12">
                         <label for="EMPID" class="form-label">員工編號</label>
-                        <input type="text" style="background-color: darkgrey;" class="form-control" id="INPUTEMPID"
-                            placeholder="" value="" readonly>
+                        <!-- <input type="text" style="background-color: darkgrey;" class="form-control" id="INPUTEMPID"
+                            placeholder="" value="" readonly> -->
+                        <select class="form-control" id="INPUTEMPID"></select>
                     </div>
                     <div class="col-12">
                         <label for="BUDGET" class="form-label">個人預算</label>
@@ -107,6 +108,7 @@
         // 取得全部會員
         function get() {
             console.log(id);
+            getEmplddl();
             $.ajax({
                 type: 'get',
                 headers: {
