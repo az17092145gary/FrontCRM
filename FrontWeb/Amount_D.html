@@ -82,8 +82,9 @@
                 <div class="modal-body">
                     <div id="empinput" class="col-12" style="display: none;">
                         <label for="EMPID" class="form-label">員工編號</label>
-                        <input type="text" style="background-color: darkgrey;" class="form-control" id="INPUTEMPID"
-                            placeholder="" value="" readonly>
+                        <!-- <input type="text" style="background-color: darkgrey;" class="form-control" id="INPUTEMPID"
+                            placeholder="" value="" readonly> -->
+                        <select class="form-control" id="INPUTEMPID"></select>
                     </div>
                     <div class="col-12">
                         <label for="payment" class="form-label">收/支</label>
@@ -124,6 +125,7 @@
     <script src="../FrontWeb/js/main.js";></script>
     <script>
         var tempDataList;
+        var emplList;
         //window.localStorage.setItem("id","A001");
         var id = window.localStorage.getItem("EMPID");
         if (id === '' || id === null) {
@@ -135,10 +137,34 @@
             console.log(id);
             if(id == "A000"){
                 $(`#empinput`).css("display","");
+                $.ajax({
+                    type:'get',
+                    headers: {
+                    "ngrok-skip-browser-warning": "true"
+                    },
+                    url: BackDomainUrl+"EMPL/getAllEMPL",
+                    success:function(result){
+                        emplList = JSON.parse(result);
+                        let emp = $(`#INPUTEMPID`);
+                        emp.html("");
+                        emplList.forEach((d,i)=>{
+                            emp.append(`
+                                <option value="${d.EMPID}">${d.EMPID} ${d.EMPNAME}</option>
+                            `);
+                            
+                        })
+                    },
+                    error:function(err){
+
+                    }
+                })
+                
             }
             else{
                 $(`#empinput`).css("display","none");
             }
+
+
             $.ajax({
                 type: 'get',
                 headers: {
@@ -226,10 +252,9 @@
         $(`#btncomfrom`).on('click', function () {
             let id = $(`#btncomfrom`).data('id');
             let empid = window.localStorage.getItem("EMPID");
-            console.log($(`#empinput`).val());
             var data = {
                 id: id,
-                empid: $(`#INPUTEMPID`).val() || empid,
+                empid: $(`#INPUTEMPID option:selected`).val() || empid,
                 payment: $(`#payment`).val(),
                 amount:$(`#amount`).val(),
                 car:$(`#car`).val(),
