@@ -117,7 +117,7 @@
                 url: BackDomainUrl+"api/Budget?user="+id,
                 //data : memEMPID,
                 success: function (result) {
-                    tempDataList = JSON.parse(result);
+                    tempDataList = JSON.parse(result).data;
                     $(`#memtable tbody`).empty();
                     tempDataList.forEach((data, index) => {
                         let strtr = `<tr>
